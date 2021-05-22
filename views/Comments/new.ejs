@@ -1,0 +1,20 @@
+<%- include("../partials/header") %>
+
+<p><%= currentUser.username%></p>
+<h3  class="text-center" style="margin-top: 80px;"> Add comment to <%= newcom.title %>post </h3>
+<div class="container  d-flex justify-content-center mt-10">
+<form style="width: 50%;"  method="POST" action="/blogs/<%= newcom._id %>/comments" >
+    <div class="form-group">
+        <h6>Author:</h6>
+      <input type="text" class="form-control"  placeholder="Author" name="com[author]" value="<%= currentUser.username%>">
+    </div>
+    <div class="form-group">
+        <h6>Comment</h6>
+      <input type="text" class="form-control" placeholder="Comment" name="com[comment]">
+    </div>
+    <input type="submit" class="btn btn-primary " style="width:100%;background-color: midnightblue;" value="Submit">
+    <!-- <p><%= currentUser.username%></p> -->
+  </form>
+</div>
+
+<%- include("../partials/footer") %>

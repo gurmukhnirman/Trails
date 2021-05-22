@@ -1,0 +1,22 @@
+<%- include("../partials/header") %>
+  <div class="container">
+
+         <!-- <img src="<%= data.image %>" alt="">
+         <p><%= data.title %></p>
+         <h3><%= data.body %></h3> -->
+   
+         <div class="card">
+          <img src="<%= data.image %>" class="card-img-top" id="show"  alt="...">
+          <div class="card-body">
+            <h5 class="card-title"><%= data.title %></h5>
+            <p class="card-text"><%= data.body %></p>
+            <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+          </div>
+        </div>
+       <div>
+          <form action="/blogs/<%=data._id %>?_method=DELETE" method="POST">
+          <button class="btn btn-danger mt-2">DELETE</button>
+          </form>
+       </div>
+  </div>
+    <%- include("../partials/footer") %>

@@ -1,0 +1,54 @@
+<html >
+<head>
+    <title>Document</title>
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+     <link rel="stylesheet" href="/stylesheets/style.css">
+     <script src="https://kit.fontawesome.com/a86abfaf3f.js" crossorigin="anonymous"></script>
+     
+    </head>
+<body>
+    <nav class="navbar navbar-expand-lg  bg-light navbar-light mx-0 fixed-top">
+        <!-- <a class="navbar-brand" href="#"></a> -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav " style="display: flex;width: 100%;flex-direction: row;justify-content: flex-end; align-items: center; padding: 10px;">
+            <li class="nav-item active" style="display: flex; position: absolute;   left: 0;">
+              <a class="nav-link" href="/">Home </a>
+              <a class="nav-link" href="/blogs">Waterparks</a>
+            </li>
+            <% if(!currentUser){ %>
+            <li class="nav-item active">
+                <a class="nav-link" href="/login">Login </a>
+              </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="/register">Register <span class="sr-only">(current)</span></a>
+            </li>
+  
+        <%  } else{  %>
+
+            <li>
+              <div class="dropdown  dropleft">
+                <i class="fa fa-user fa-2x " id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                </i>
+            
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="nav-link" href="/logout">Log Out</a>
+                  <a class="nav-link"  href="/user/<%= currentUser._id %>">my profile</a>
+                  <a class="dropdown-item" href="/posts/<%= currentUser._id %>">posts</a>
+                </div>
+              </div>
+            </li>
+
+        <%  }   %>
+    
+          </ul>
+          <!-- <form class="form-inline my-2 my-lg-0" method="GET" action="/anime">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="search" name="search">
+            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+          </form> -->
+        </div>
+      </nav>
+

@@ -1,0 +1,47 @@
+
+
+.navbar.navbar-expand-lg{
+    padding: 0; 
+    
+}
+#show{
+    height:600px;
+}
+.card-img-top 
+{
+    height: 200px;
+}
+.container{
+    margin-top: 80px;
+    padding: 0 px;
+}
+a.nav-link{
+    margin-left: 20px;
+}
+.btn-outline-primary {
+    margin-right: 50px;
+    margin-left: 20px;
+}
+#Title
+{
+    margin-right: 15px;
+}
+label{
+    color:aquamarine;
+}
+input{
+    border-color: thistle;
+}
+#new-form
+{
+    font-weight: bold;
+    padding:20px;
+    width:60%;  
+    box-shadow: black;
+    border: .5px solid grey;
+}
+
+input
+{
+  width: 80%;
+}
