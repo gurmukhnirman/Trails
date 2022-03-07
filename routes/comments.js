@@ -33,8 +33,18 @@ router.post('/blogs/:id/comments',LoggedIn,function(req,res){
 			 if(err)
 			 console.log("comment not created successfully");
 			 else
-			 {
-				 post.comments.push(newcomment);
+			 {   
+				// overall rating will change
+				let len  = post.comments.length + 1;
+				let rat = parseInt(newcomment.rating);
+				let new_rating = (post.overall_rating*(len) + rat)/(len + 1);
+				console.log("new rating  ", new_rating);
+				post.overall_rating = new_rating;
+				//  console.log("new comment", newcomment);
+				post.comments.push(newcomment);
+				//  console.log("length of comments is ",post.overall);
+
+               
 				 post.save(function(err,doc){
 					 if(err)
 					 console.log("post with comment not saved");
@@ -70,5 +80,7 @@ function LoggedIn(req,res,next){
     }	
     res.redirect("/login");
  };
+
+ 
 
 module.exports = router;

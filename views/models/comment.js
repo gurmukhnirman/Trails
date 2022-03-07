@@ -3,6 +3,7 @@ var mongoose= require("mongoose");
 const commentSchema= new mongoose.Schema({
 	author:String,
 	comment:String,
+	rating: Number,
     created: {type: Date, default :Date.now}
 });
 

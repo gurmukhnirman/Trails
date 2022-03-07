@@ -24,11 +24,14 @@ router.get('/blogs',function( req, res){
  
  router.post('/blogs',LoggedIn,function(req,res){
      req.body.blog.userId = req.user._id;
-     console.log("came here");
+     console.log("posting a blog");
+     console.log(req.body.blog);
+   
       Blog.create(req.body.blog,function(err,post){
           if(err)
           res.redirect('/blogs/new');
           else{
+            
              User.findById(req.user._id,function(err,person){
                    if(err) {
                        console.log("here error");

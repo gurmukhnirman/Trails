@@ -11,6 +11,7 @@ var User                   =require("./views/models/User.js");
 var seedDB                 =require("./seed.js");
 var passportLocalStrategy  =require("passport-local-mongoose");
 var env                    =require('dotenv');
+const  Server              =require("socket.io");
 
 // routes
 var blogRoutes     = require("./routes/blogs.js");
@@ -18,14 +19,8 @@ var commentRoutes  = require("./routes/comments.js");
 var authRoutes     = require("./routes/auth");
 var indexRoutes    = require("./routes/index")
 
-// loading env
-env.config();
 
-//connecting to mongoose
-var key1= process.env.key1;
-key1 = key1.slice(1, -2);
-
-mongoose.connect(`mongodb+srv://gurmukh:${key1}@cluster0-4fjef.mongodb.net/test?retryWrites=true&w=majority`,{
+mongoose.connect(`mongodb+srv://gurmukh:nirmangursahib@cluster0.4fjef.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`,{
 	useNewUrlParser:true,
 	useCreateIndex:true,
 	useUnifiedTopology: true
@@ -40,6 +35,10 @@ app.set("view engine","ejs");
 app.use(express.static( __dirname + "/public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
+
+// chat methods
+// const httpServer = createServer(app);
+// const io = new Server(httpServer);
 
 // seedDB();
 
