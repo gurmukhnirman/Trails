@@ -52,7 +52,7 @@ router.get('/blogs',function( req, res){
  });
  
  // show route
- router.get('/blogs/:id',function(req,res){
+ router.get('/blogs/:id',LoggedIn,function(req,res){
      //let cardId = new ObjectId(req.params.id);
      Blog.findById(req.params.id).populate("comments").exec(function(err,data){
          if(err)
@@ -132,6 +132,11 @@ router.get('/anime',function(req,res){
 // 	  res.render("Blogs/search",{data:foundBlog});
 //  });
 });
+
+router.post('/search_loc',(req,res) =>{
+    console.log(req.body);
+    res.send("got to the route");
+})
 
 function LoggedIn(req,res,next){
     if(req.isAuthenticated()){
