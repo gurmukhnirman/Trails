@@ -1,5 +1,35 @@
 <%- include("../partials/header") %>
-  <div class="container">
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="/search_loc">
+            <div  class="form-group" >
+              <div class="md-form md-outline">
+                <i class="fas fa-envelope prefix"></i>
+                <label for="emailExample">Title</label>
+                <input type="text" autocomplete="off" id="emailExample" name="loc" class="form-control">
+              </div>
+              </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" onclick="document.forms[0].submit()">Search</button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+<!-- ######################################################################## -->
+
+  <div class="container" >
     <div class="jumbotron ">
       <h1>Welcome to our website</h1>
       <p>This is the Blog page</p>
@@ -27,4 +57,16 @@
       <% });  %>
     </div>
   </div>
+
+
+
+ 
+  <script defer>
+
+    window.onload = (e) =>{
+      var myModal = new bootstrap.Modal(document.getElementById('myModal'))
+      myModal.show()
+    }
+  </script>
+
 <%- include("../partials/footer") %>
