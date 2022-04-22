@@ -37,6 +37,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 
 
+// db.collection.createIndex( { <location field> : "2dsphere" } )
+
 
 // seedDB();
 

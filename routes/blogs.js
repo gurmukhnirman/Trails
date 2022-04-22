@@ -2,6 +2,8 @@ var express     =  require("express");
 var router      =  express.Router();
 var User        =  require("../views/models/User.js");
 var Blog        =  require("../views/models/blogs.js");
+var axios       =  require("axios").default;
+var locus       =  require('locus')
 
 
 // INDEX ROUTE
@@ -25,11 +27,37 @@ router.get('/blogs',function( req, res){
  router.post('/blogs',LoggedIn,function(req,res){
      req.body.blog.userId = req.user._id;
      console.log("posting a blog");
-     console.log(req.body.blog);
-   
-      Blog.create(req.body.blog,function(err,post){
-          if(err)
-          res.redirect('/blogs/new');
+    //  console.log(req.body.blog);
+    let address = req.body.blog.location;
+   console.log(address);
+   let key = "8ff9c7da3a103208060bbcc72d68ee08";
+    // now we will get the lat,long from address
+
+    const params = {
+        access_key: key,
+        query: address
+      }
+    
+      axios.get('http://api.positionstack.com/v1/forward', {params})
+      .catch(error => {
+        console.log(error.response.status, error.response.statusText);
+      })
+      .then(response => {
+        // console.log(response.data);
+          req.body.blog.address = req.body.blog.location; 
+          req.body.blog.location = {
+              type : "Point",
+              coordinates: [response.data.data[0].latitude,response.data.data[0].latitude],
+          }
+
+
+          console.log(req.body.blog);
+          Blog.create(req.body.blog,function(err,post){
+          if(err){
+            res.send(err);
+            // res.redirect('/blogs/new');
+          }
+          
           else{
             
              User.findById(req.user._id,function(err,person){
@@ -48,6 +76,31 @@ router.get('/blogs',function( req, res){
              });
           }
       });
+      })
+     
+    
+   
+    //   Blog.create(req.body.blog,function(err,post){
+    //       if(err)
+    //       res.redirect('/blogs/new');
+    //       else{
+            
+    //          User.findById(req.user._id,function(err,person){
+    //                if(err) {
+    //                    console.log("here error");
+    //                    res.redirect('/blogs/new');
+    //                }
+    //                else{
+    //                    person.posts.push(post);
+    //                    person.save(function(err,newUser){
+    //                        if(!err){
+    //                            res.redirect("/blogs");
+    //                        }
+    //                    })
+    //                }
+    //          });
+    //       }
+    //   });
  
  });
  
@@ -119,6 +172,7 @@ router.get("/user/:id",function(req,res){
 router.get('/anime',function(req,res){
 	//  res.send(req.query.search);	 
 	var thename = req.query.search;
+    console.log(thename);
 	Blog.findOne( { "title" : { $regex : new RegExp(thename, "i") } },function(err,foundBlog){
 			 if(err)
 			 res.send("error");
@@ -133,9 +187,39 @@ router.get('/anime',function(req,res){
 //  });
 });
 
+
+
+//==================================================================
+
 router.post('/search_loc',(req,res) =>{
-    console.log(req.body);
-    res.send("got to the route");
+   console.log(req.body);
+
+   let key = "8ff9c7da3a103208060bbcc72d68ee08";
+   let address = req.body.location;
+    // now we will get the lat,long from address
+
+    const params = {
+        access_key: key,
+        query: address
+    }
+
+    axios.get('http://api.positionstack.com/v1/forward', {params})
+    .catch(error => {
+        console.log(error.response.status, error.response.statusText);
+    })
+    .then(response =>{
+          if(response.data.data.length > 0){
+            let lat = response.data.data[0].latitude;
+            let long = response.data.data[0].longitude;
+            // eval(locus);
+            console.log(lat,long);
+            
+            Blog.find({ location:{ $near:{ $geometry:{ type:"Point", coordinates:[long,lat] },  $minDistance:0,$maxDistance:250}} },(err,data) => {
+                if(err) console.log(err);
+                else  console.log(data)
+             })
+          }
+    })
 })
 
 function LoggedIn(req,res,next){

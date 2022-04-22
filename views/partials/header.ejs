@@ -18,6 +18,11 @@
             <li class="nav-item active" style="display: flex; position: absolute;   left: 0;">
               <a class="nav-link" href="/">Home </a>
               <a class="nav-link" href="/blogs">Webpage</a>
+              
+              <form class="form-inline" style="display: flex;" method="POST" action="/search_loc">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" style="margin-right: 10px;" name = "location">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="document.getElementsByTagName('form').submit()">Search</button>
+              </form>
             </li>
             <% if(!currentUser){ %>
             <li class="nav-item active">
