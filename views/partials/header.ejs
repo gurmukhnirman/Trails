@@ -34,7 +34,20 @@
   
         <%  } else{  %>
 
-            <li>
+          <li>
+            <div class="btn-group dropstart">
+              <i type="button" class="fa fa-user fa-2x " class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+              </i>
+              <ul class="dropdown-menu">
+                <li> <a class="dropdown-item" href="/logout">Log Out</a> </li>
+                <li> <a class="dropdown-item"  href="/user/<%= currentUser._id %>">my profile</a> </li>
+                <li> <a class="dropdown-item"  href="/user/<%= currentUser._id %>">my profile</a> </li>
+                
+              </ul>
+            </div>
+          </li>
+
+            <!-- <li>
               <div class="dropdown  dropleft">
                 <i class="fa fa-user fa-2x " id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 </i>
@@ -45,7 +58,7 @@
                   <a class="dropdown-item" href="/posts/<%= currentUser._id %>">posts</a>
                 </div>
               </div>
-            </li>
+            </li> -->
 
         <%  }   %>
     

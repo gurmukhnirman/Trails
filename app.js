@@ -20,24 +20,35 @@ var authRoutes     = require("./routes/auth");
 var indexRoutes    = require("./routes/index")
 
 
-mongoose.connect(`mongodb+srv://gurmukh:nirmangursahib@cluster0.4fjef.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`,{
+// mongoose.connect(`mongodb+srv://gurmukh:nirmangursahib@cluster0.4fjef.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`,{
+// 	useNewUrlParser:true,
+// 	useCreateIndex:true,
+// 	useUnifiedTopology: true
+// }).then(()=>{
+// 	console.log("Connected to DB!");
+// }).catch(err => {
+// 	 console.log('ERROR:',err.message);
+// });
+
+mongoose.connect('mongodb://localhost:27017/travel_site',{
 	useNewUrlParser:true,
 	useCreateIndex:true,
-	useUnifiedTopology: true
-}).then(()=>{
-	console.log("Connected to DB!");
-}).catch(err => {
-	 console.log('ERROR:',err.message);
-});
+	useUnifiedTopology: true,
+	useFindAndModify: false
+}).then(() =>{
+	console.log("Connected to database");
+})
+.catch((err) =>{
+	console.log('ERROR:',err.message);
+})
 
-mongoose.set('useFindAndModify', false);
+
+
+// mongoose.set('useFindAndModify', false);
 app.set("view engine","ejs");
 app.use(express.static( __dirname + "/public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
-
-
-// db.collection.createIndex( { <location field> : "2dsphere" } )
 
 
 // seedDB();

@@ -1,0 +1,75 @@
+<%- include("../partials/header") %>
+  <style>
+    .form {
+    max-width: 330px;
+    padding: 15px;
+    padding-top: 120px;
+    margin: 0 auto;
+}
+.form .form-heading {
+    margin-bottom: 20px;
+    text-align: center;
+}
+.form .form-control {
+    position: relative;
+    font-size: 16px;
+    height: auto;
+    padding: 10px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.form .form-control:focus {
+    z-index: 2;
+}
+.form input[type="text"] {
+    margin-bottom: -1px;
+    border-radius: 0;
+}
+  </style>
+
+<% let data  = {restaurants : [], hotels : [], tourist_places :[]  } %>
+<% blogs.forEach((blog) =>{ %>
+  <%   if(blog.location_type == 'tourist_places') data['tourist_places'].push(blog); %>
+  <%  if(blog.location_type == 'restaurant') data['restaurants'].push(blog); %>
+  <%   if(blog.location_type == 'hotels') data['hotels'].push(blog); %>
+<% }) %>
+
+  <div class="container" >
+   
+    <div class="row">
+     
+      <div class="row">
+        <div class="col-10">
+          <select class="selectpicker form-control">
+            <option selected="selected" value="restaurants">restaurants</option>
+            <option value="tourist_places">tourist_places</option>
+            <option value="hotels">hotels</option>
+          </select>
+        </div>
+
+        <div class="col-2">
+          <button type="submit" onclick = "myfunc()"  class =  "btn btn-outline-success"> search</button>
+        </div>
+      </div>
+      
+      <% var sel = 'restaurants' %>
+    
+      <% blogs[sel].forEach(function(blog){ %>
+        <div class="card col-12 col-md-3 m-md-15 m-2 p-0" >
+          <img src="<%= blog.image %>" class="card-img-top">
+          <div class="card-body">
+            <h5 class="card-title"><%= blog.title %></h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <a href="/blogs/<%= blog._id %>" class="btn btn-primary">Show More</a>
+          </div>
+        </div>
+      <% });  %>
+    </div>
+  </div>
+
+
+<% sel = document.query_selector("select").value %>
+ 
+
+<%- include("../partials/footer") %>

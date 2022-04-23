@@ -6,6 +6,7 @@
   <title>Document</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link rel="stylesheet" href="/stylesheets/new_campground.css">
+  <link rel="stylesheet" href="/stylesheets/style.css">
   <script src="https://kit.fontawesome.com/a86abfaf3f.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -41,6 +42,42 @@
                  <textarea type="text" rows="8" cols="50" id="passwordExample" style="margin-bottom: 10px;" name="blog[body]" placeholder="<%= data.body %>" class="form-control"></textarea>
               </div>
             </div>
+            
+            <div  class="form-group" >
+              <div class="md-form md-outline">
+                <i class="fas fa-envelope prefix"></i>
+                <label for="emailExample">Please enter complete address</label>
+                <input type="text" id="emailExample" name="blog[location]" value="<%= data.address %>" class="form-control">
+              </div>
+            </div>
+
+            <div  class="form-group" >
+              <div class="md-form md-outline">
+                <i class="fas fa-envelope prefix"></i>
+                <label for="emailExample">location- type</label>
+                <input type="text" id="emailExample" name="blog[location_type]" class="form-control">
+              </div>
+            </div>
+
+          <div class="form-group">
+            <!-- <div class="md-form md-outline"> -->
+                 <!-- <label for="passwordExample">Rating</label>
+                 <input type="number" step = 1 class="form-control" placeholder="rate experience out of 5" name="blog[overall_rating]"> -->
+                 <div class="star-rating">
+                  <input type="radio" id="5-stars" name="blog[overall_rating]" value="5" />
+                  <label for="5-stars" class="star">&#9733;</label>
+                  <input type="radio" id="4-stars" name="blog[overall_rating]" value="4" />
+                  <label for="4-stars" class="star">&#9733;</label>
+                  <input type="radio" id="3-stars" name="blog[overall_rating]" value="3" />
+                  <label for="3-stars" class="star">&#9733;</label>
+                  <input type="radio" id="2-stars" name="blog[overall_rating]" value="2" />
+                  <label for="2-stars" class="star">&#9733;</label>
+                  <input type="radio" id="1-star" name="blog[overall_rating]" value="1" />
+                  <label for="1-star" class="star">&#9733;</label>
+                </div>
+            <!-- </div> -->
+          </div>
+            
             <div class="space">
               <div class="float-right">
                 <button class="btn btn-rounded" >submit</button>

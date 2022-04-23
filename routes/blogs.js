@@ -40,14 +40,21 @@ router.get('/blogs',function( req, res){
     
       axios.get('http://api.positionstack.com/v1/forward', {params})
       .catch(error => {
-        console.log(error.response.status, error.response.statusText);
+        
+        // console.log(error.response.status, error.response.statusText);
+        if(!error){
+            res.send("error");
+        } 
+        else {
+            res.send(error.response);
+        }
       })
       .then(response => {
         // console.log(response.data);
           req.body.blog.address = req.body.blog.location; 
           req.body.blog.location = {
               type : "Point",
-              coordinates: [response.data.data[0].latitude,response.data.data[0].latitude],
+              coordinates: [response.data.data[0].longitude,response.data.data[0].latitude],
           }
 
 
@@ -205,19 +212,27 @@ router.post('/search_loc',(req,res) =>{
 
     axios.get('http://api.positionstack.com/v1/forward', {params})
     .catch(error => {
-        console.log(error.response.status, error.response.statusText);
+        console.log(error.response);
     })
     .then(response =>{
-          if(response.data.data.length > 0){
+          if(response && response.data && response.data.data.length > 0){
             let lat = response.data.data[0].latitude;
             let long = response.data.data[0].longitude;
             // eval(locus);
             console.log(lat,long);
             
-            Blog.find({ location:{ $near:{ $geometry:{ type:"Point", coordinates:[long,lat] },  $minDistance:0,$maxDistance:250}} },(err,data) => {
+            Blog.find({ location:{ $near:{ $geometry:{ type:"Point", coordinates:[long,lat] },$maxDistance: 25000 }}},(err,data) => {
                 if(err) console.log(err);
-                else  console.log(data)
+                else{
+                    if(data.length == 0) res.send("no data");
+                    else{
+                        res.render("Blogs/locations",{blogs: data});
+                    }
+                }
              })
+          }
+          else{
+              res.send("server not able to find great places near the places you searched for")
           }
     })
 })

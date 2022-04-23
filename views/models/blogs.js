@@ -24,6 +24,7 @@ const blogSchema=new mongoose.Schema({
         ref:"Comment"
       },      
 ],
-userId: String
+userId: String,
+location_type : String,
 });
    module.exports= mongoose.model("Blog",blogSchema);
