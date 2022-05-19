@@ -122,7 +122,7 @@ router.get('/blogs',function( req, res){
            User.findById(data.userId,function(err,user){
                  if(err) console.log("wrong id");
                  else{
-                     res.render("Blogs/show",{data:data,user:user});
+                     res.render("Blogs/show2",{data:data,user:user});
                  }
            });
            
@@ -174,6 +174,32 @@ router.get("/user/:id",function(req,res){
 	})
 })
 
+router.get('/user/:id/edit', (req,res) =>{
+    let user_id = req.params.id;
+    User.findById(user_id,(err,user) =>{
+          if(err) {
+              console.log("not able to find user");
+          }
+          else{
+              res.render('Blogs/edit_user',{user: user})
+          }
+    })
+})
+
+router.put('/user/:id',(req,res) =>{
+    let user_id = req.params.id;
+    var newUser = {username:req.body.username,email:req.body.email,mobileNumber: req.body.mob_no,proffession: req.body.proffession, hobby: req.body.hobby,address: req.body.address,avatar: req.body.avatar};
+    User.findByIdAndUpdate(user_id,newUser,(err,user) =>{
+        if(err){
+            res.send(err);
+        }
+        else{
+            res.render("my_posts/user_profile",{data: user})
+        }
+    })
+
+})
+
 //==================================//
 // search a post
 router.get('/anime',function(req,res){
@@ -197,9 +223,9 @@ router.get('/anime',function(req,res){
 
 
 //==================================================================
-
+let location_list;
 router.post('/search_loc',(req,res) =>{
-   console.log(req.body);
+//    console.log(req.body);
 
    let key = "8ff9c7da3a103208060bbcc72d68ee08";
    let address = req.body.location;
@@ -215,17 +241,18 @@ router.post('/search_loc',(req,res) =>{
         console.log(error.response);
     })
     .then(response =>{
-          if(response && response.data && response.data.data.length > 0){
+          if(response && response.data && response.data.data && response.data.data.length > 0){
             let lat = response.data.data[0].latitude;
             let long = response.data.data[0].longitude;
             // eval(locus);
             console.log(lat,long);
             
-            Blog.find({ location:{ $near:{ $geometry:{ type:"Point", coordinates:[long,lat] },$maxDistance: 25000 }}},(err,data) => {
+            Blog.find({ location:{ $near:{ $geometry:{ type:"Point", coordinates:[long,lat] }, }}},(err,data) => {
                 if(err) console.log(err);
                 else{
                     if(data.length == 0) res.send("no data");
                     else{
+                        location_list = data;
                         res.render("Blogs/locations",{blogs: data});
                     }
                 }
@@ -236,6 +263,23 @@ router.post('/search_loc',(req,res) =>{
           }
     })
 })
+
+router.post("/get_a_specific_loc",(req,res) =>{
+    // res.send("came to specific loc");
+    console.log(req.body.loc_type)
+    let datalist  = {restaurants : [], hotels : [], tourist_places :[]  };
+    location_list.forEach((blog) =>{
+        if(blog.location_type == 'tourist_site') datalist['tourist_places'].push(blog);
+        if(blog.location_type == 'restaurant') datalist['restaurants'].push(blog);
+        if(blog.location_type == 'hotels') datalist['hotels'].push(blog);
+   
+    })
+
+    let  loc_type = req.body.loc_type;
+    res.render("Blogs/specific_loc",{posts: datalist[loc_type]})
+})
+
+
 
 function LoggedIn(req,res,next){
     if(req.isAuthenticated()){

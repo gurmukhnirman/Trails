@@ -11,7 +11,11 @@ var UserSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref:"Blog"
         }
-    ]
+    ],
+    hobby: String,
+    profession:String,
+    address: String,
+    avatar:String,
 });
 UserSchema.plugin(passportLocalMongoose);
 module.exports = mongoose.model("User",UserSchema);

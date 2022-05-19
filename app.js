@@ -69,13 +69,14 @@ passport.deserializeUser(User.deserializeUser());
 //=========================================================//
 
  app.use(function(req, res, next){
- res.locals.currentUser =req.user;
+     res.locals.currentUser = req.user;
+//  res.locals.datalist = datalist;
  next();
 });
 app.use(function(req, res, next){
 	res.locals.keys = process.env;
 	next();
-   });
+});
 app.use(indexRoutes);
 app.use(authRoutes);
 app.use(blogRoutes);

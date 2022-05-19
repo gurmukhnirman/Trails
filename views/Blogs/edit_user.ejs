@@ -1,0 +1,49 @@
+<%- include("../partials/header") %>
+
+<style>
+  .form-group{
+    margin-bottom: 20px;
+  }
+</style>
+
+<h2  class="text-center" style="margin-top: 80px; color:blue;"> Sign Up! </h2>
+<div class="container  d-flex justify-content-center mt-10">
+<form style="width: 50%;" action="/user/<%= user._id %>?_method=PUT"  method="post">
+    <div class="form-group">
+        <h6>Name:</h6>
+      <input type="text" value="<%= user.username %>" autocomplete="off" class="form-control"  placeholder="Name" name="username">
+    </div>
+
+    <div class="form-group">
+      <h6>avatar</h6>
+      <input type="text" autocomplete="off" class="form-control" placeholder="avatar" value="<%= user.avatar%>" name="avatar">
+    </div>
+    <div class="form-group">
+      <h6>mobile number:</h6>
+    <input type="text" autocomplete="off" class="form-control" placeholder="mobile_no" value="<%= user.mob_no %>" name="mob_no">
+  </div>
+  <div class="form-group">
+    <h6>Email</h6>
+    <input type="text" autocomplete="off" class="form-control" placeholder="email" value="<%= user.email %>" name="email">
+  </div>
+
+  <div class="form-group">
+    <h6>hobby</h6>
+    <input type="text" autocomplete="off" class="form-control" placeholder="hobby" value="<%= user.hobby %>" name="hobby">
+  </div>
+
+  <div class="form-group">
+    <h6>proffesion</h6>
+    <input type="text" autocomplete="off" class="form-control" placeholder="proffession" value="<%= user.proffession %>" name="proffession">
+  </div>
+
+  <div class="form-group">
+    <h6>address</h6>
+    <input type="text" autocomplete="off" class="form-control" placeholder="address" value="<%= user.address %>" name="address">
+  </div>
+    <input type="submit" class="btn btn-primary " style="width:100%;background-color: midnightblue;" value="Sign Up">
+  </form>
+</div>
+
+<%- include("../partials/footer") %>
+

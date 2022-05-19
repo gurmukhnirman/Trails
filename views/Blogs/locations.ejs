@@ -27,20 +27,34 @@
     border-radius: 0;
 }
   </style>
+<!-- <% console.log(blogs)%> -->
 
-<% let data  = {restaurants : [], hotels : [], tourist_places :[]  } %>
+<% let datalist  = {restaurants : [], hotels : [], tourist_places :[]  } %>
 <% blogs.forEach((blog) =>{ %>
-  <%   if(blog.location_type == 'tourist_places') data['tourist_places'].push(blog); %>
-  <%  if(blog.location_type == 'restaurant') data['restaurants'].push(blog); %>
-  <%   if(blog.location_type == 'hotels') data['hotels'].push(blog); %>
+  <%   if(blog.location_type == 'tourist_site') datalist['tourist_places'].push(blog); %>
+  <%  if(blog.location_type == 'restaurant') datalist['restaurants'].push(blog); %>
+  <%   if(blog.location_type == 'hotels') datalist['hotels'].push(blog); %>
 <% }) %>
 
   <div class="container" >
    
     <div class="row">
-     
+      <p>results of the search</p>
       <div class="row">
-        <div class="col-10">
+        <div class="col-4">
+          restaurants : <%= datalist['restaurants'].length %>
+        </div>
+
+        <div class="col-4">
+          tourist places : <%= datalist['tourist_places'].length %>
+        </div>
+
+        <div class="col-4">
+          hotels : <%= datalist['hotels'].length %>
+        </div>
+
+      <div class="row">
+        <!-- <div class="col-10">
           <select class="selectpicker form-control">
             <option selected="selected" value="restaurants">restaurants</option>
             <option value="tourist_places">tourist_places</option>
@@ -50,26 +64,24 @@
 
         <div class="col-2">
           <button type="submit" onclick = "myfunc()"  class =  "btn btn-outline-success"> search</button>
-        </div>
+        </div> -->
+
+
+          <form method="POST" action="/get_a_specific_loc">
+            <div class="mb-3 col-10">
+              <select class="selectpicker form-control" name = "loc_type">
+                <option selected="selected" value="restaurants">restaurants</option>
+                <option value="tourist_places">tourist_places</option>
+                <option value="hotels">hotels</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+  
+       
       </div>
-      
-      <% var sel = 'restaurants' %>
-    
-      <% blogs[sel].forEach(function(blog){ %>
-        <div class="card col-12 col-md-3 m-md-15 m-2 p-0" >
-          <img src="<%= blog.image %>" class="card-img-top">
-          <div class="card-body">
-            <h5 class="card-title"><%= blog.title %></h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="/blogs/<%= blog._id %>" class="btn btn-primary">Show More</a>
-          </div>
-        </div>
-      <% });  %>
     </div>
   </div>
-
-
-<% sel = document.query_selector("select").value %>
  
 
 <%- include("../partials/footer") %>
