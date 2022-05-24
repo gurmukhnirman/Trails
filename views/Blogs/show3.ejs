@@ -11,7 +11,7 @@
                             </div>
                             <div class="body">
                                 <p><%= data.body %></p>
-                                <div class="created" style="position: absolute; right: 20px; bottom: 20px;">
+                                <div class="created" style="float: right">
                                     <span>created by...</span>
                                     <!-- <form action="/user/<%= user._id %>" method="GET" style="display:inline"  >
                                       <button class="btn btn-warning mt-2"> <%= user.username %> </button>
@@ -19,62 +19,56 @@
                                     </form> -->
                                   
                                     <a href="/user/<%= user._id %>" style= "margin-left: 5px; text-decoration: underline;"> <%= user.username %> </a>
-                                    <!-- <a href="/blogs/<%= data._id %>/edit"> edit</a>
+                                    <a href="/blogs/<%= data._id %>/edit"> edit</a>
                                     <form action="/blogs/<%= data._id %>?_method=DELETE"  method="post">
                                         <button class="btn btn-rounded" >submit</button>
-                                    </form> -->
+                                    </form>
                                   </div>
 
-                                <div class="rating" style="float: right">
-                                    <% for(var i = 0;i <= data.overall_rating;i++ ){ %>
-                                        <i class="fa fa-star" aria-hidden="true" style="color: #ffdf00";></i>
-                                    <% } %>
-                                </div>
+                                <% for(var i = 0;i <= data.overall_rating;i++ ){ %>
+                                    <i class="fa fa-star" aria-hidden="true" style="color: #ffdf00";></i>
+                                <% } %>
 
-                                <form class="form-inline" style="display: inline;" method="POST" action="/search_loc">
+                                <form class="form-inline" style="display: flex; justify-content: flex-start; margin-top: 20px;" method="POST" action="/search_loc">
                                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name = "location" value = "<%= data.address %>" style = "display: none;">
                                     <button class="btn btn-outline-primary my-2 my-sm-0" type="submit" style="margin-left: 0px">explore more</button>
                                 </form>
                             </div>         
                         </div>               
                     </div>
-                    <div class="card" style="background-color: #eee; padding: 2em;">
-                            <div class="header" style="display: flex; justify-content: space-between">
-                                <h2 >comemnts(<%= data.comments.length %> )</h2>
-                                <a class="btn btn-outline-success" style="float: right"
-                                href="/blogs/<%= data._id %>/comments/new">comment</a>
+                   
+                    <section style="background-color: #f7f6f6;">
+                        <div class="container my-5 py-5 text-dark">
+                          <div class="row d-flex justify-content-center">
+                            <div class="col-md-6 col-lg-10 col-xl-6">
+                              <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h4 class="text-dark mb-0">Unread comments (4)</h4>
+                                <div class="card">
+                                  <div class="card-body p-2 d-flex align-items-center">
+                                    <h6 class="text-primary fw-bold small mb-0 me-1">Comments "ON"</h6>
+                                    <div class="form-check form-switch">
+                                      <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked />
+                                      <label class="form-check-label" for="flexSwitchCheckChecked"></label>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                      
+                             
+                              </div>
                             </div>
-                            <div class="body" style="background-color: white">
-                                <ul class="comment-reply list-unstyled">
-
+                          </div>
+                        </div>
+                      </section>
+                            
                                   <% data.comments.forEach(function(comment){ %>
 
                                     <!-- <% console.log(comment)%> -->
-                                    <li class="row clearfix" style="margin-bottom: 20px">
-                                        <div class="icon-box col-md-2 col-4">
-                                            <img class="img-fluid" src="<%= comment.avatar %>" alt="Awesome Image">
-                                            <!-- <a href="<%= comment.avatar %>"> image link</a> -->
-                                        </div>
-                                        <div class="text-box col-md-10 col-8 p-l-0 p-r0">
-                                            <h5 class="m-b-0" style="color: blue"><%= comment.author %> </h5>
-                                            <p><%= comment.comment %></p>
-                                            <ul class="list-inline">
-                                                <li><a href="javascript:void(0);"><%= comment.created.toString().slice(0,10);  %></a></li>
-                                                <li><a href="javascript:void(0);">Reply</a></li>
-                                            </ul>
-
-                                            <div style="float: right">
-                                                <% for(var i = 0;i <= comment.rating;i++ ){ %>
-                                                    <i class="fa fa-star" aria-hidden="true" style="color: #ffdf00";></i>
-                                                <% } %>
-                                            </div>
-                                        </div>
-                                    </li>
+                                  
                                    
                                     <% }); %>
-                                </ul>                                        
-                            </div>
-                        </div>
+                            
+                
                 </div>
                 <div class="col-lg-4 col-md-12 right-box">
                     <div class="card">
@@ -134,3 +128,4 @@
 
 
 <%- include("../partials/footer") %>
+

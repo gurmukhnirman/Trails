@@ -36,7 +36,7 @@
               <p class="lead fw-normal mb-1">About</p>
               <div class="p-4" style="background-color: #f8f9fa;">
                 <p class="font-italic mb-1">Profession : <%= data.profession %></p>
-                <p class="font-italic mb-1">Address: <%= data.address %></p>
+                <p class="font-italic mb-1" style="overflow-wrap: break-word">Address: <%= data.address %></p>
                 <p class="font-italic mb-0">Hobby:  <%= data.hobby %></p>
               </div>
             </div>
@@ -44,15 +44,7 @@
               <p class="lead fw-normal mb-0">Recent photos</p>
             </div>
             <div class="row g-2">
-              <% let ind = 1 %>
-              <% data.posts.forEach(function(post){ %>
-                <% console.log(post) %>
-                <div class="col-3 mx-1">
-                  <img src="<%= post.image %>" alt="">
-                  <a href="/blogs/<%= post._id %>" alt="image 1" class="w-100 rounded-3"> post<%= ind %> </a>
-                </div>
-
-              <% ind = ind + 1; }); %>
+                <a href="/my_posts">show posts</a>
             </div>
     
 

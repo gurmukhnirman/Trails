@@ -34,8 +34,11 @@
                               <div class="card-body">
                                   <div class="small text-muted">January 1, 2022</div>
                                   <h2 class="card-title h4"><%= blog.title %></h2>
+                                  <% for(var i = 0;i <= blog.overall_rating;i++ ){ %>
+                                    <i class="fa fa-star" aria-hidden="true" style="color: #ffdf00";></i>
+                                  <% } %>
                                   <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
-                                  <a class="btn btn-primary" href="/blogs/<%= blog._id %>" style = "margin-bottom: 1px;">Show more →</a>
+                                  <a class="btn btn-outline-info" href="/blogs/<%= blog._id %>" style = "margin-bottom: 1px;">Show more →</a>
                               </div>
                           </div>
                           <!-- <div class="col-1">
@@ -64,12 +67,14 @@
                     <!-- Search widget-->
                     <div class="card mb-4">
                         <div class="card-header">Search</div>
-                        <div class="card-body">
-                            <div class="input-group">
-                                <input class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
-                                <button class="btn btn-primary" id="button-search" type="button">Go!</button>
+                            <div class="card-body">
+                                <form action="/find_places" method="post" class="form-inline" style="display: flex">
+                                    <div class="form-group ">
+                                        <input type="text" class="form-control" id="inputPassword2" name="place" placeholder="search a place">
+                                      </div>
+                                      <button type="submit" class="btn btn-primary mb-2">Go!!</button>
+                                </form>
                             </div>
-                        </div>
                     </div>
                     <!-- Categories widget-->
                     <div class="card mb-4">

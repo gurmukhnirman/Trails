@@ -9,11 +9,14 @@ var locus       =  require('locus')
 // INDEX ROUTE
 router.get('/blogs',function( req, res){
     console.log("showing home page");
-     Blog.find({},function(err,blogs){
+     Blog.find({location_type: "tourist_site"},function(err,blogs){
         if(err)
         console.log('error');
-        else
-        res.render("Blogs/index",{blogs:blogs});
+        else{
+            blogs.sort((a,b) => (a.overall_rating > b.overall_rating) ? -1: 1)
+            res.render("Blogs/index",{blogs:blogs});
+        }
+        
     });	
  });
  
@@ -130,7 +133,6 @@ router.get('/blogs',function( req, res){
      });
  });
  //edit and update
- 
  router.get("/blogs/:id/edit",(req,res)=>{
      Blog.findById(req.params.id,(err,data)=>{
          if(err) res.send("error");
@@ -141,7 +143,6 @@ router.get('/blogs',function( req, res){
  });
  
  //update route
- 
  router.put("/blogs/:id",(req,res)=>{
       Blog.findByIdAndUpdate(req.params.id, req.body.blog ,function (err, docs) {
            if (err){
@@ -149,7 +150,7 @@ router.get('/blogs',function( req, res){
            }
           else{
              //  console.log("Updated User : ", docs);
-              res.redirect("/blogs/"+ req.params.id);
+              res.redirect("/blogs/");
            }
  });
  });
@@ -157,13 +158,46 @@ router.get('/blogs',function( req, res){
  
  // delete route
  router.delete('/blogs/:id',function(req,res){
-     Blog.findByIdAndRemove(req.params.id,function(err){
+    //  res.send("reached here");
+     Blog.remove({"_id" : req.params.id},function(err,data){
        if(err)
        res.send("ERROR");
-       else
-       res.redirect('/posts/'+ req.user._id);
+       else{
+        // res.redirect('/posts/'+ req.user._id);
+        res.redirect("/blogs");
+       }
+       
      });
  });
+
+ // get a location 
+ router.post("/find_places",(req,res) =>{
+     Blog.find({$text : {$search: req.body.place}},(err,data) =>{
+         if(err){
+             res.send("no relevant data in the database")
+         }
+         else{
+             data.sort((a,b) => (a.overall_rating > b.overall_rating) ? -1: 1)
+             res.render("my_posts/my_posts",{blogs: data, purpose: "Interesting spots"})
+         }
+     })
+ })
+
+// show all the posts
+router.get("/my_posts",(req,res) =>{
+      User.findById(req.user._id).populate("posts").exec((err,data) =>{
+         if(err){
+             console.log("wrong user");
+         }
+         else{
+             res.render("my_posts/my_posts",{blogs: data.posts, purpose:"showing posts"});
+           
+         }
+      });
+     
+});
+
+
 
  //=========================================//
  //get user
@@ -247,7 +281,7 @@ router.post('/search_loc',(req,res) =>{
             // eval(locus);
             console.log(lat,long);
             
-            Blog.find({ location:{ $near:{ $geometry:{ type:"Point", coordinates:[long,lat] }, }}},(err,data) => {
+            Blog.find({ location:{ $near:{ $geometry:{ type:"Point", coordinates:[long,lat] },$maxDistance: 50000 }}},(err,data) => {
                 if(err) console.log(err);
                 else{
                     if(data.length == 0) res.send("no data");
@@ -276,7 +310,40 @@ router.post("/get_a_specific_loc",(req,res) =>{
     })
 
     let  loc_type = req.body.loc_type;
-    res.render("Blogs/specific_loc",{posts: datalist[loc_type]})
+    res.render("Blogs/specific_loc",{blogs: datalist[loc_type], purpose: `great ${loc_type} near you`});
+})
+
+router.get("/book_hotels",(req,res) =>{
+    let datalist  = {restaurants : [], hotels : [], tourist_places :[]  };
+    location_list.forEach((blog) =>{
+        if(blog.location_type == 'tourist_site') datalist['tourist_places'].push(blog);
+        if(blog.location_type == 'restaurant') datalist['restaurants'].push(blog);
+        if(blog.location_type == 'hotels') datalist['hotels'].push(blog);
+   
+    })
+    res.render("Blogs/specific_loc",{posts : datalist[hotels]})
+})
+
+router.get("/book_restaurants",(req,res) =>{
+    let datalist  = {restaurants : [], hotels : [], tourist_places :[]  };
+    location_list.forEach((blog) =>{
+        if(blog.location_type == 'tourist_site') datalist['tourist_places'].push(blog);
+        if(blog.location_type == 'restaurant') datalist['restaurants'].push(blog);
+        if(blog.location_type == 'hotels') datalist['hotels'].push(blog);
+   
+    })
+    res.render("Blogs/specific_loc",{posts : datalist[restaurants]})
+})
+
+router.get("/best_tickets",(req,res) =>{
+    let datalist  = {restaurants : [], hotels : [], tourist_places :[]  };
+    location_list.forEach((blog) =>{
+        if(blog.location_type == 'tourist_site') datalist['tourist_places'].push(blog);
+        if(blog.location_type == 'restaurant') datalist['restaurants'].push(blog);
+        if(blog.location_type == 'hotels') datalist['hotels'].push(blog);
+   
+    })
+    res.render("Blogs/specific_loc",{posts : datalist[tourist_sites]})
 })
 
 
