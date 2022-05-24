@@ -10,7 +10,7 @@ router.get("/register",function(req,res){
 });
 
 router.post("/register",function(req,res){
-	var newUser = new User({username:req.body.username,email:req.body.email,mobileNumber: req.body.mob_no});
+	var newUser = new User({username:req.body.username,email:req.body.email,mobileNumber: req.body.mob_no,profession: req.body.profession, hobby: req.body.hobby,address: req.body.address,avatar: req.body.avatar});
 	// console.log(newUser);
 	// console.log(req.body.password);
      User.register(newUser,req.body.password,function(err,user){

@@ -1,5 +1,10 @@
 <%- include("../partials/header") %>
 
+<style>
+  .form-group{
+    margin-bottom: 20px;
+  }
+</style>
 
 <h2  class="text-center" style="margin-top: 80px; color:blue;"> Sign Up! </h2>
 <div class="container  d-flex justify-content-center mt-10">
@@ -8,9 +13,15 @@
         <h6>Name:</h6>
       <input type="text" autocomplete="off" class="form-control"  placeholder="Name" name="username">
     </div>
+
+    <div class="form-group">
+      <h6>avatar</h6>
+      <input type="text" autocomplete="off" class="form-control" placeholder="avatar" name="avatar">
+    </div>
+
     <div class="form-group">
         <h6>Password</h6>
-      <input type="text" autocomplete="off" class="form-control" placeholder="password" name="password">
+      <input type="password" autocomplete="off" class="form-control" placeholder="password" name="password">
     </div>
     <div class="form-group">
       <h6>mobile number:</h6>
@@ -19,6 +30,21 @@
   <div class="form-group">
     <h6>Email</h6>
     <input type="text" autocomplete="off" class="form-control" placeholder="email" name="email">
+  </div>
+
+  <div class="form-group">
+    <h6>hobby</h6>
+    <input type="text" autocomplete="off" class="form-control" placeholder="hobby" name="hobby">
+  </div>
+
+  <div class="form-group">
+    <h6>proffesion</h6>
+    <input type="text" autocomplete="off" class="form-control" placeholder="proffession" name="profession">
+  </div>
+
+  <div class="form-group">
+    <h6>address</h6>
+    <input type="text" autocomplete="off" class="form-control" placeholder="address" name="address">
   </div>
     <input type="submit" class="btn btn-primary " style="width:100%;background-color: midnightblue;" value="Sign Up">
   </form>

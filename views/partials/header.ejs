@@ -3,6 +3,8 @@
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
      <link rel="stylesheet" href="/stylesheets/style.css">
+     <link rel="stylesheet" href="/stylesheets/show2.css">
+     <link rel="stylesheet" href="/stylesheets/specific_loc.css">
      <script src="https://kit.fontawesome.com/a86abfaf3f.js" crossorigin="anonymous"></script>
      
     </head>
@@ -18,6 +20,11 @@
             <li class="nav-item active" style="display: flex; position: absolute;   left: 0;">
               <a class="nav-link" href="/">Home </a>
               <a class="nav-link" href="/blogs">Webpage</a>
+              
+              <!-- <form class="form-inline" style="display: flex;" method="POST" action="/search_loc">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" style="margin-right: 10px;" name = "location">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="document.getElementsByTagName('form').submit()">Search</button>
+              </form> -->
             </li>
             <% if(!currentUser){ %>
             <li class="nav-item active">
@@ -29,7 +36,19 @@
   
         <%  } else{  %>
 
-            <li>
+          <li>
+            <div class="btn-group dropstart">
+              <i type="button" class="fa fa-user fa-2x " class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+              </i>
+              <ul class="dropdown-menu">
+                <li> <a class="dropdown-item" href="/logout">Log Out</a> </li>
+                <li> <a class="dropdown-item"  href="/user/<%= currentUser._id %>">my profile</a> </li>
+                <li> <a class="dropdown-item"  href="/blogs/new"> add new post</a> </li>              
+              </ul>
+            </div>
+          </li>
+
+            <!-- <li>
               <div class="dropdown  dropleft">
                 <i class="fa fa-user fa-2x " id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 </i>
@@ -40,7 +59,7 @@
                   <a class="dropdown-item" href="/posts/<%= currentUser._id %>">posts</a>
                 </div>
               </div>
-            </li>
+            </li> -->
 
         <%  }   %>
     

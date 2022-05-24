@@ -5,6 +5,18 @@ const blogSchema=new mongoose.Schema({
 	image:String,
 	body:String,
   overall_rating:Number,
+  address: String,
+  location: {
+    type: {
+      type: String, // Don't do `{ location: { type: String } }`
+      enum: ['Point'], // 'location.type' must be 'Point'
+      required: true
+    },
+    coordinates: {
+      type: [Number],
+      required: true
+    }
+  },
     created: {type: Date, default :Date.now},
     comments:  [
       {
@@ -12,6 +24,7 @@ const blogSchema=new mongoose.Schema({
         ref:"Comment"
       },      
 ],
-userId: String
+userId: String,
+location_type : String,
 });
    module.exports= mongoose.model("Blog",blogSchema);

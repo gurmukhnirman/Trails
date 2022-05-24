@@ -1,0 +1,87 @@
+<%- include("../partials/header") %>
+  <style>
+    .form {
+    max-width: 330px;
+    padding: 15px;
+    padding-top: 120px;
+    margin: 0 auto;
+}
+.form .form-heading {
+    margin-bottom: 20px;
+    text-align: center;
+}
+.form .form-control {
+    position: relative;
+    font-size: 16px;
+    height: auto;
+    padding: 10px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.form .form-control:focus {
+    z-index: 2;
+}
+.form input[type="text"] {
+    margin-bottom: -1px;
+    border-radius: 0;
+}
+  </style>
+<!-- <% console.log(blogs)%> -->
+
+<% let datalist  = {restaurants : [], hotels : [], tourist_places :[]  } %>
+<% blogs.forEach((blog) =>{ %>
+  <%   if(blog.location_type == 'tourist_site') datalist['tourist_places'].push(blog); %>
+  <%  if(blog.location_type == 'restaurant') datalist['restaurants'].push(blog); %>
+  <%   if(blog.location_type == 'hotels') datalist['hotels'].push(blog); %>
+<% }) %>
+
+  <div class="container" >
+   
+    <div class="row">
+      <p>results of the search</p>
+      <div class="row">
+        <div class="col-4">
+          restaurants : <%= datalist['restaurants'].length %>
+        </div>
+
+        <div class="col-4">
+          tourist places : <%= datalist['tourist_places'].length %>
+        </div>
+
+        <div class="col-4">
+          hotels : <%= datalist['hotels'].length %>
+        </div>
+
+      <div class="row">
+        <!-- <div class="col-10">
+          <select class="selectpicker form-control">
+            <option selected="selected" value="restaurants">restaurants</option>
+            <option value="tourist_places">tourist_places</option>
+            <option value="hotels">hotels</option>
+          </select>
+        </div>
+
+        <div class="col-2">
+          <button type="submit" onclick = "myfunc()"  class =  "btn btn-outline-success"> search</button>
+        </div> -->
+
+
+          <form method="POST" action="/get_a_specific_loc">
+            <div class="mb-3 col-10">
+              <select class="selectpicker form-control" name = "loc_type">
+                <option selected="selected" value="restaurants">restaurants</option>
+                <option value="tourist_places">tourist_places</option>
+                <option value="hotels">hotels</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+  
+       
+      </div>
+    </div>
+  </div>
+ 
+
+<%- include("../partials/footer") %>

@@ -1,0 +1,131 @@
+<%- include("../partials/header") %>
+
+<div id="main-content" class="blog-page">
+        <div class="container">
+            <div class="row clearfix">
+                <div class="col-lg-8 col-md-12 left-box">
+                    <div class="card single_post">
+                        <div class="body" style="padding: 2px;">
+                            <div class="img-post">
+                                <img class="d-block img-fluid" style="width: 100%;" src="<%= data.image %>" alt="First slide">
+                            </div>
+                            <div class="body">
+                                <p><%= data.body %></p>
+                                <div class="created" style="float: right">
+                                    <span>created by...</span>
+                                    <!-- <form action="/user/<%= user._id %>" method="GET" style="display:inline"  >
+                                      <button class="btn btn-warning mt-2"> <%= user.username %> </button>
+                                      
+                                    </form> -->
+                                  
+                                    <a href="/user/<%= user._id %>" style= "margin-left: 5px; text-decoration: underline;"> <%= user.username %> </a>
+                                    <a href="/blogs/<%= data._id %>/edit"> edit</a>
+                                    <form action="/blogs/<%= data._id %>?_method=DELETE"  method="post">
+                                        <button class="btn btn-rounded" >submit</button>
+                                    </form>
+                                  </div>
+
+                                <% for(var i = 0;i <= data.overall_rating;i++ ){ %>
+                                    <i class="fa fa-star" aria-hidden="true" style="color: #ffdf00";></i>
+                                <% } %>
+
+                                <form class="form-inline" style="display: flex; justify-content: flex-start; margin-top: 20px;" method="POST" action="/search_loc">
+                                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name = "location" value = "<%= data.address %>" style = "display: none;">
+                                    <button class="btn btn-outline-primary my-2 my-sm-0" type="submit" style="margin-left: 0px">explore more</button>
+                                </form>
+                            </div>         
+                        </div>               
+                    </div>
+                   
+                    <section style="background-color: #f7f6f6;">
+                        <div class="container my-5 py-5 text-dark">
+                          <div class="row d-flex justify-content-center">
+                            <div class="col-md-6 col-lg-10 col-xl-6">
+                              <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h4 class="text-dark mb-0">Unread comments (4)</h4>
+                                <div class="card">
+                                  <div class="card-body p-2 d-flex align-items-center">
+                                    <h6 class="text-primary fw-bold small mb-0 me-1">Comments "ON"</h6>
+                                    <div class="form-check form-switch">
+                                      <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked />
+                                      <label class="form-check-label" for="flexSwitchCheckChecked"></label>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                      
+                             
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </section>
+                            
+                                  <% data.comments.forEach(function(comment){ %>
+
+                                    <!-- <% console.log(comment)%> -->
+                                  
+                                   
+                                    <% }); %>
+                            
+                
+                </div>
+                <div class="col-lg-4 col-md-12 right-box">
+                    <div class="card">
+                        <div class="body search">
+                            <div class="input-group m-b-0">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-search"></i></span>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Search...">                                    
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="header">
+                            <h2>Explore</h2>
+                        </div>
+                        <div class="body widget">
+                            <ul class="list-unstyled categories-clouds m-b-0">
+                                <li><a href="/book_hotels">Book Hotels</a></li>
+                                <li><a href="/book_restaurants">Book restaurants</a></li>
+                                <li><a href="/best_tickets">Find best tickets</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="header">
+                            <h4>Location</h4>                        
+                        </div>
+                    
+                        <div class="body widget popular-post">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="single_post">
+                                        <div class="img-post"> 
+                                            <iframe
+                                                width="450"
+                                                height="250"
+                                                frameborder="0" style="border:0"
+                                                referrerpolicy="no-referrer-when-downgrade"
+                                                src="https://www.google.com/maps/embed/v1/place
+                                                ?key=AIzaSyBBHuoEF-I4cs8NJdwvRT4OvCfAvXjV_-I
+                                                &q=Eiffel+Tower,Paris+France">
+                                            </iframe>
+                                        </div>                                            
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+<%- include("../partials/footer") %>
+
