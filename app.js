@@ -20,6 +20,9 @@ var authRoutes     = require("./routes/auth");
 var indexRoutes    = require("./routes/index")
 
 
+env.config();
+
+
 // mongoose.connect(`mongodb+srv://gurmukh:nirmangursahib@cluster0.4fjef.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`,{
 // 	useNewUrlParser:true,
 // 	useCreateIndex:true,
@@ -85,6 +88,7 @@ app.use(commentRoutes);
 
 let port= process.env.PORT || 1234;
 app.listen(port,() => {
+	console.log(process.env)
 	console.log("server listening on port 1234");
 });
 

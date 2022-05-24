@@ -8,7 +8,9 @@ var locus       =  require('locus')
 
 // INDEX ROUTE
 router.get('/blogs',function( req, res){
+
     console.log("showing home page");
+    console.log(process.env.position_stack_api);
      Blog.find({location_type: "tourist_site"},function(err,blogs){
         if(err)
         console.log('error');
@@ -33,7 +35,7 @@ router.get('/blogs',function( req, res){
     //  console.log(req.body.blog);
     let address = req.body.blog.location;
    console.log(address);
-   let key = "8ff9c7da3a103208060bbcc72d68ee08";
+   let key = process.env.position_stack_api;;
     // now we will get the lat,long from address
 
     const params = {
@@ -259,9 +261,9 @@ router.get('/anime',function(req,res){
 //==================================================================
 let location_list;
 router.post('/search_loc',(req,res) =>{
-//    console.log(req.body);
 
-   let key = "8ff9c7da3a103208060bbcc72d68ee08";
+
+   let key = process.env.position_stack_api;
    let address = req.body.location;
     // now we will get the lat,long from address
 
